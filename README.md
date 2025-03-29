@@ -39,7 +39,7 @@ Here’s how it works:
 1. Code is pushed to the `main` branch.  
 2. A GitHub Action workflow is triggered, building the Docker image.  
 3. The built image is tagged and pushed to the [Docker Hub repository](https://hub.docker.com/u/abhiverma001).
-- [To-Do-Frontend-App-Docker-Hub-Repo](https://hub.docker.com/repository/docker/abhiverma001/fronend-to-do-app/general)
+- [To-Do-Frontend-App-Docker-Hub-Repo](https://hub.docker.com/repository/docker/abhiverma001/frontend-to-do-app/general)
 - [To-Do-Backend-App-Docker-Hub-Repo](in-progress) 
 
 ### Want to try it yourself?  

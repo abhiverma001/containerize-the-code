@@ -1,4 +1,4 @@
-name: Build-Push-Frontend-To-Do-App
+name: Build-Push-Backend-To-Do-App
 
 on:
   workflow_run:
@@ -11,7 +11,7 @@ on:
     branches:
       - main
     paths:
-      - 'application-code/frontend/**'  # Trigger only on changes in this folder
+      - 'application-code/backendend/**'  # Trigger only on changes in this folder
 
   workflow_dispatch:
 
@@ -42,14 +42,14 @@ jobs:
       # Step 4: Build the Docker image
       - name: Build Docker image
         run: |
-          IMAGE_NAME=abhiverma001/frontend-to-do-app
+          IMAGE_NAME=abhiverma001/backend-to-do-app
           IMAGE_TAG=${{ env.VERSION }}
-          docker build -t $IMAGE_NAME:$IMAGE_TAG -f application-code/frontend/Dockerfile .
+          docker build -t $IMAGE_NAME:$IMAGE_TAG -f application-code/backend/Dockerfile .
 
       # Step 5: Push the Docker image to Docker Hub
       - name: Push Docker image
         run: |
-          IMAGE_NAME=abhiverma001/frontend-to-do-app
+          IMAGE_NAME=abhiverma001/backend-to-do-app
           IMAGE_TAG=${{ env.VERSION }}
           docker push $IMAGE_NAME:$IMAGE_TAG
 
@@ -57,7 +57,7 @@ jobs:
       # - name: Push latest tag (optional)
       #   if: github.ref == 'refs/heads/main'
       #   run: |
-      #     IMAGE_NAME=abhiverma001/frontend-to-do-app
+      #     IMAGE_NAME=abhiverma001/backend-to-do-app
       #     docker tag $IMAGE_NAME:${{ env.VERSION }} $IMAGE_NAME:latest
       #     docker push $IMAGE_NAME:latest
 
