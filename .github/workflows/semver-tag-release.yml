@@ -29,17 +29,18 @@ jobs:
       - name: Determine next version
         id: version
         run: |
-          # Fetch tags
-          git fetch --tags
+          # Ensure all tags are fetched
+          git fetch --tags --force
 
           # Get the latest tag, default to v0.0.0 if no tags are found
           latest_tag=$(git describe --tags --abbrev=0 || echo "v0.0.0")
+          echo "Latest tag: $latest_tag"
 
           # Parse version numbers (major.minor.patch)
-          version_parts=(${latest_tag//./ })
-          major=${version_parts[0]//v/}
-          minor=${version_parts[1]}
-          patch=${version_parts[2]}
+          IFS='.' read -r -a version_parts <<< "${latest_tag//v/}"
+          major=${version_parts[0]:-0}
+          minor=${version_parts[1]:-0}
+          patch=${version_parts[2]:-0}
 
           # Look at the commit messages to decide the type of increment (patch, minor, major)
           major_bump=false
@@ -78,7 +79,16 @@ jobs:
           echo "New version: $new_version"
           echo "::set-output name=version::$new_version"
 
-      # Step 4: Create a new Git tag
+      # Step 4: Check if the tag already exists
+      - name: Check for existing tag
+        run: |
+          VERSION=${{ steps.version.outputs.version }}
+          if git rev-parse "refs/tags/$VERSION" >/dev/null 2>&1; then
+            echo "Tag $VERSION already exists. Skipping tagging."
+            exit 0
+          fi
+
+      # Step 5: Create and push new version tag
       - name: Create and push new version tag
         run: |
           VERSION=${{ steps.version.outputs.version }}
