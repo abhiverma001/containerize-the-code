@@ -30,6 +30,8 @@ jobs:
         run: |
           git fetch --tags --force
           echo "All tags fetched."
+          git describe --tags --abbrev=0
+
 
       # Step 4: Determine the latest tag and calculate the next version
       - name: Determine next version
