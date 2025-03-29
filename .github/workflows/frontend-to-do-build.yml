@@ -13,6 +13,10 @@ on:
       - 'application-code/frontend/**'  # Trigger only on changes in this folder
   workflow_dispatch:
 
+concurrency:
+  group: frontend-deployment
+  cancel-in-progress: false
+
 jobs:
   build:
     runs-on: ubuntu-latest
