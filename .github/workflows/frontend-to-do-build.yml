@@ -1,0 +1,53 @@
+name: Build-Push-Frontend-To-Do-App
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'application-code/frontend/**'  # Trigger only on changes in this folder
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # Step 1: Checkout the code from the repository
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Step 2: Log in to Docker Hub
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # Step 3: Get the version tag (latest tag from Git)
+      - name: Get version tag
+        id: version
+        run: |
+          VERSION=$(git describe --tags --abbrev=0)
+          echo "VERSION=${VERSION}" >> $GITHUB_ENV
+
+      # Step 4: Build the Docker image
+      - name: Build Docker image
+        run: |
+          IMAGE_NAME=abhiverma001/fronend-to-do-app
+          IMAGE_TAG=${{ env.VERSION }}
+          docker build -t $IMAGE_NAME:$IMAGE_TAG -f application-code/frontend/Dockerfile .
+
+      # Step 5: Push the Docker image to Docker Hub
+      - name: Push Docker image
+        run: |
+          IMAGE_NAME=abhiverma001/fronend-to-do-app
+          IMAGE_TAG=${{ env.VERSION }}
+          docker push $IMAGE_NAME:$IMAGE_TAG
+
+      # Step 6: Optionally, push the `latest` tag (optional step)
+      - name: Push latest tag (optional)
+        if: github.ref == 'refs/heads/main'
+        run: |
+          IMAGE_NAME=abhiverma001/fronend-to-do-app
+          docker tag $IMAGE_NAME:${{ env.VERSION }} $IMAGE_NAME:latest
+          docker push $IMAGE_NAME:latest

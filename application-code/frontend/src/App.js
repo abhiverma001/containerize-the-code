@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Paper, TextField, Checkbox, Button } from "@material-ui/core";
-import Tasks from "./Tasks";
 import "./App.css"; // Ensure your CSS is updated accordingly
 
 class App extends Component {
@@ -62,7 +61,7 @@ class App extends Component {
     return (
       <div className="app">
         <header className="app-header">
-          <h1>My To-Do List</h1>
+          <h1>Welcome to My To-Do List</h1>
         </header>
 
         <div className="main-content">
@@ -85,7 +84,16 @@ class App extends Component {
             {/* Task List */}
             <div className="tasks-list">
               {tasks.length === 0 ? (
-                <div className="no-tasks-message">No tasks to display</div>
+                <div className="welcome-message">
+                  <h2>Welcome to My To-Do List App!</h2>
+                  <p>Start organizing your day by adding tasks above.</p>
+                  <p>“The secret of getting ahead is getting started.” – Abhishek Verma</p>
+                  <img
+                    src="https://cdn.pixabay.com/photo/2017/01/31/13/14/checklist-2023731_960_720.png"
+                    alt="Welcome Illustration"
+                    className="welcome-image"
+                  />
+                </div>
               ) : (
                 tasks.map((task) => (
                   <Paper key={task._id} className="task-item">
@@ -112,6 +120,11 @@ class App extends Component {
             </div>
           </Paper>
         </div>
+
+        {/* Footer */}
+        <footer className="app-footer">
+          <p>Website Author: Abhishek Verma</p>
+        </footer>
       </div>
     );
   }

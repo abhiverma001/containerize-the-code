@@ -78,8 +78,7 @@ docker images
 docker run -p 3000:3000 my-node-app
 ```
 
-- access in local broser
+- access in local browser
 ```
-localhost:3000
+http://localhost:3000
 ```
-

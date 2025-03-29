@@ -1,0 +1,84 @@
+name: Version-and-Tag-on-Push
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write    
+
+jobs:
+  version:
+    runs-on: ubuntu-latest
+    steps:
+      # Step 1: Checkout code
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Step 2: Set up Git environment
+      - name: Set up Git
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+      # Step 3: Get the latest tag and determine version increment (major/minor/patch)
+      - name: Determine next version
+        id: version
+        run: |
+          # Fetch tags
+          git fetch --tags
+
+          # Get the latest tag, default to v0.0.0 if no tags are found
+          latest_tag=$(git describe --tags --abbrev=0 || echo "v0.0.0")
+
+          # Parse version numbers (major.minor.patch)
+          version_parts=(${latest_tag//./ })
+          major=${version_parts[0]//v/}
+          minor=${version_parts[1]}
+          patch=${version_parts[2]}
+
+          # Look at the commit messages to decide the type of increment (patch, minor, major)
+          major_bump=false
+          minor_bump=false
+          patch_bump=false
+
+          # Check if any commit message indicates a breaking change (major)
+          if git log -1 --pretty=%B | grep -iqE "(breaking|BREAKING)"; then
+            major_bump=true
+          fi
+
+          # Check if any commit message indicates a new feature (minor)
+          if git log -1 --pretty=%B | grep -iqE "(feature|FEATURE)"; then
+            minor_bump=true
+          fi
+
+          # Default to patch if no major/minor keywords are found
+          if ! $major_bump && ! $minor_bump; then
+            patch_bump=true
+          fi
+
+          # Increment the version number based on detected changes
+          if $major_bump; then
+            major=$((major + 1))
+            minor=0
+            patch=0
+          elif $minor_bump; then
+            minor=$((minor + 1))
+            patch=0
+          elif $patch_bump; then
+            patch=$((patch + 1))
+          fi
+
+          # Generate the new version tag
+          new_version="v$major.$minor.$patch"
+          echo "New version: $new_version"
+          echo "::set-output name=version::$new_version"
+
+      # Step 4: Create a new Git tag
+      - name: Create and push new version tag
+        run: |
+          VERSION=${{ steps.version.outputs.version }}
+          git tag $VERSION
+          git push origin $VERSION

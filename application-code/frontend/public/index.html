@@ -5,147 +5,39 @@
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
-    <meta name="description" content="TO-DO application" />
+    <meta
+      name="description"
+      content="TO-DO application"
+    />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
     <title>TO-DO App</title>
-
-    <!-- Google Font for modern typography -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-
-    <style>
-      /* Global Styles */
-      body {
-        font-family: 'Poppins', sans-serif;
-        margin: 0;
-        padding: 0;
-        background: linear-gradient(45deg, #f3f4f6, #d1d9e6);
-        color: #333;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        overflow: hidden;
-      }
-
-      #root {
-        width: 100%;
-        max-width: 800px;
-        padding: 20px;
-        background: #fff;
-        border-radius: 15px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        text-align: center;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-      }
-
-      #root:hover {
-        transform: scale(1.05);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-      }
-
-      h1 {
-        font-size: 2.5rem;
-        margin-bottom: 20px;
-        color: #4a90e2;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-      }
-
-      p {
-        font-size: 1.1rem;
-        margin-bottom: 20px;
-        color: #555;
-      }
-
-      .btn {
-        padding: 10px 20px;
-        font-size: 1.1rem;
-        background-color: #4a90e2;
-        color: #fff;
-        border: none;
-        border-radius: 25px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-      }
-
-      .btn:hover {
-        background-color: #357ab7;
-      }
-
-      .btn:focus {
-        outline: none;
-      }
-
-      .container {
-        animation: fadeIn 1s ease-in-out;
-      }
-
-      /* Keyframe animations */
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-        }
-        to {
-          opacity: 1;
-        }
-      }
-
-      /* Responsive Design */
-      @media (max-width: 600px) {
-        h1 {
-          font-size: 2rem;
-        }
-        .btn {
-          padding: 8px 16px;
-          font-size: 1rem;
-        }
-      }
-
-    </style>
   </head>
-
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
 
-    <div id="root" class="container">
-      <h1>Welcome to the TO-DO App</h1>
-      <p>Your one-stop place to keep track of tasks and be productive!</p>
-      <button class="btn" onclick="startApp()">Get Started</button>
-    </div>
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
 
-    <script>
-      // Simulate the start of the app with some dynamic behavior
-      function startApp() {
-        document.getElementById('root').innerHTML = `
-          <h1>Let's Get to Work!</h1>
-          <p>Add your tasks and stay productive.</p>
-          <input type="text" id="task-input" placeholder="Enter your task here" style="padding: 10px; width: 80%; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 5px;">
-          <button class="btn" onclick="addTask()">Add Task</button>
-          <ul id="task-list" style="list-style-type: none; padding: 0; margin-top: 20px;"></ul>
-        `;
-      }
-
-      function addTask() {
-        const taskInput = document.getElementById('task-input');
-        const taskList = document.getElementById('task-list');
-        
-        if (taskInput.value.trim() === "") {
-          alert("Please enter a valid task!");
-          return;
-        }
-
-        const taskItem = document.createElement('li');
-        taskItem.style.fontSize = "1.2rem";
-        taskItem.style.marginBottom = "10px";
-        taskItem.innerHTML = `${taskInput.value} <button style="color: red; background: none; border: none; cursor: pointer;" onclick="removeTask(this)">X</button>`;
-        taskList.appendChild(taskItem);
-
-        taskInput.value = '';  // Clear the input field
-      }
-
-      function removeTask(button) {
-        button.parentElement.remove();
-      }
-    </script>
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
   </body>
 </html>
