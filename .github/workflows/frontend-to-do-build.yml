@@ -27,7 +27,7 @@ jobs:
       - name: Get version tag
         id: version
         run: |
-          VERSION=$(git describe --tags --abbrev=0)
+          VERSION=$(git describe --tags --abbrev=0 || echo "v0.0.0")
           echo "VERSION=${VERSION}" >> $GITHUB_ENV
 
       # Step 4: Build the Docker image
