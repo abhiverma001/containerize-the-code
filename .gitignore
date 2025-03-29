@@ -1,0 +1,18 @@
+# Dynamically created kubeconfig files
+**/kubeconfig
+
+.vscode/
+
+.vs/
+
+# temporary files
+.temp
+
+#redshift_snapshot_archive_output_directory
+**/.zips/*
+
+#temp directory where terragrunt.hcl is generated from the wcc-download-providers script
+.temp.download/**
+
+# Rider
+.idea/**
