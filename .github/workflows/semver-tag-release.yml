@@ -13,11 +13,11 @@ jobs:
   version:
     runs-on: ubuntu-latest
     steps:
-      # Step 1: Checkout code
+      # Step 1: Checkout code with all history and tags
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0 # Fetch the entire history including tags
+          fetch-depth: 0 # Fetch entire history including tags
 
       # Step 2: Set up Git environment
       - name: Set up Git
@@ -25,15 +25,18 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
 
-      # Step 3: Get the latest tag and determine version increment (major/minor/patch)
+      # Step 3: Fetch all tags
+      - name: Fetch all tags
+        run: |
+          git fetch --tags --force
+          echo "All tags fetched."
+
+      # Step 4: Determine the latest tag and calculate the next version
       - name: Determine next version
         id: version
         run: |
-          # Ensure all tags are fetched
-          git fetch --tags --force
-
           # Get the latest tag, default to v0.0.0 if no tags are found
-          latest_tag=$(git describe --tags --abbrev=0 || echo "v0.0.0")
+          latest_tag=$(git describe --tags $(git rev-list --tags --max-count=1) || echo "v0.0.0")
           echo "Latest tag: $latest_tag"
 
           # Parse version numbers (major.minor.patch)
@@ -42,27 +45,22 @@ jobs:
           minor=${version_parts[1]:-0}
           patch=${version_parts[2]:-0}
 
-          # Look at the commit messages to decide the type of increment (patch, minor, major)
+          # Check commit messages for version bump keywords
           major_bump=false
           minor_bump=false
           patch_bump=false
 
-          # Check if any commit message indicates a breaking change (major)
           if git log -1 --pretty=%B | grep -iqE "(breaking|BREAKING)"; then
             major_bump=true
           fi
-
-          # Check if any commit message indicates a new feature (minor)
           if git log -1 --pretty=%B | grep -iqE "(feature|FEATURE)"; then
             minor_bump=true
           fi
-
-          # Default to patch if no major/minor keywords are found
           if ! $major_bump && ! $minor_bump; then
             patch_bump=true
           fi
 
-          # Increment the version number based on detected changes
+          # Increment version numbers
           if $major_bump; then
             major=$((major + 1))
             minor=0
@@ -77,20 +75,27 @@ jobs:
           # Generate the new version tag
           new_version="v$major.$minor.$patch"
           echo "New version: $new_version"
+          echo "VERSION=${new_version}" >> $GITHUB_ENV
           echo "::set-output name=version::$new_version"
 
-      # Step 4: Check if the tag already exists
-      - name: Check for existing tag
+      # Step 5: Check if tag already exists
+      - name: Check if tag already exists
+        id: check_tag
         run: |
-          VERSION=${{ steps.version.outputs.version }}
-          if git rev-parse "refs/tags/$VERSION" >/dev/null 2>&1; then
-            echo "Tag $VERSION already exists. Skipping tagging."
-            exit 0
-          fi
+          if git rev-parse "refs/tags/${{ env.VERSION }}" >/dev/null 2>&1; then
+            echo "Tag ${{ env.VERSION }} already exists."
+            echo "TAG_EXISTS=true" >> $GITHUB_ENV
+          else
+            echo "TAG_EXISTS=false" >> $GITHUB_ENV
 
-      # Step 5: Create and push new version tag
+      # Step 6: Create and push the tag if it does not exist
       - name: Create and push new version tag
+        if: env.TAG_EXISTS == 'false'
         run: |
-          VERSION=${{ steps.version.outputs.version }}
-          git tag $VERSION
-          git push origin $VERSION
+          git tag ${{ env.VERSION }}
+          git push origin ${{ env.VERSION }}
+
+      # Step 7: Skip if the tag exists
+      - name: Skip tag creation
+        if: env.TAG_EXISTS == 'true'
+        run: echo "Skipping tag creation as ${{ env.VERSION }} already exists."
