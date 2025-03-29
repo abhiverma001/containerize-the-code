@@ -4,8 +4,8 @@ on:
   workflow_run:
     workflows:
       - semver-tag-release.yml  # Wait for this workflow to complete
-    types:
-      - completed
+    status:
+      - success
   workflow_dispatch:
 
 jobs:
