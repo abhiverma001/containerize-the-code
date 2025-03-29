@@ -46,11 +46,11 @@ jobs:
           IMAGE_TAG=${{ env.VERSION }}
           docker push $IMAGE_NAME:$IMAGE_TAG
 
-      # Step 6: Optionally, push the `latest` tag (optional step)
-      - name: Push latest tag (optional)
-        if: github.ref == 'refs/heads/main'
-        run: |
-          IMAGE_NAME=abhiverma001/fronend-to-do-app
-          docker tag $IMAGE_NAME:${{ env.VERSION }} $IMAGE_NAME:latest
-          docker push $IMAGE_NAME:latest
+      # Step 6: Optionally, push the `latest` tag (optional step) uncomment if you want to show latest image as latest tag
+      # - name: Push latest tag (optional)
+      #   if: github.ref == 'refs/heads/main'
+      #   run: |
+      #     IMAGE_NAME=abhiverma001/fronend-to-do-app
+      #     docker tag $IMAGE_NAME:${{ env.VERSION }} $IMAGE_NAME:latest
+      #     docker push $IMAGE_NAME:latest
 

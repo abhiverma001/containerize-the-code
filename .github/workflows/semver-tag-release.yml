@@ -14,8 +14,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # Step 1: Checkout code
-      - name: Checkout repository
-        uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Fetch the entire history including tags
 
       # Step 2: Set up Git environment
       - name: Set up Git
