@@ -12,9 +12,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      # Step 1: Checkout the code from the repository
-      - name: Checkout repository
-        uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Fetch the entire history including tags
+
 
       # Step 2: Log in to Docker Hub
       - name: Log in to Docker Hub
@@ -52,4 +54,3 @@ jobs:
           docker tag $IMAGE_NAME:${{ env.VERSION }} $IMAGE_NAME:latest
           docker push $IMAGE_NAME:latest
 
-          
