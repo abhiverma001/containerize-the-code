@@ -1,6 +1,11 @@
 name: Build-Push-Frontend-To-Do-App
 
 on:
+  workflow_run:
+    workflows:
+      - semver-tag-release.yml  # Wait for this workflow to complete
+    types:
+      - completed
   push:
     branches:
       - main
