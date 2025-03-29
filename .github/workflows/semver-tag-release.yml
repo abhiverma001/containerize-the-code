@@ -87,6 +87,7 @@ jobs:
             echo "TAG_EXISTS=true" >> $GITHUB_ENV
           else
             echo "TAG_EXISTS=false" >> $GITHUB_ENV
+          fi
 
       # Step 6: Create and push the tag if it does not exist
       - name: Create and push new version tag
