@@ -11,7 +11,7 @@ on:
     branches:
       - main
     paths:
-      - 'application-code/backendend/**'  # Trigger only on changes in this folder
+      - 'application-code/backend/**'  # Trigger only on changes in this folder
 
   workflow_dispatch:
 

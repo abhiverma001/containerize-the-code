@@ -1,4 +1,4 @@
-# Structure:-
+# Structure:- 
 This is simple 'To-DO' frontend application. This structure follows best practices for React development, keeping concerns separated (UI, logic, services), and allowing for easy deployment and containerization.
 ```
 /frontend
