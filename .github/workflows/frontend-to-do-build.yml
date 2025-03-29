@@ -6,6 +6,13 @@ on:
       - semver-tag-release.yml  # Wait for this workflow to complete
     status:
       - success
+
+  push:
+    branches:
+      - main
+    paths:
+      - 'application-code/frontend/**'  # Trigger only on changes in this folder
+
   workflow_dispatch:
 
 jobs:
