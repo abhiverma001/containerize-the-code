@@ -6,16 +6,7 @@ on:
       - semver-tag-release.yml  # Wait for this workflow to complete
     types:
       - completed
-  push:
-    branches:
-      - main
-    paths:
-      - 'application-code/frontend/**'  # Trigger only on changes in this folder
   workflow_dispatch:
-
-concurrency:
-  group: frontend-deployment
-  cancel-in-progress: false
 
 jobs:
   build:
@@ -26,6 +17,16 @@ jobs:
         with:
           fetch-depth: 0 # Fetch the entire history including tags
 
+      # Step 2: Check if changes were made in the application-code/frontend/** path
+      - name: Check for changes in To-Do frontend app path
+        id: check-changes
+        run: |
+          CHANGED_FILES=$(git diff --name-only HEAD^ HEAD)
+          echo "Changed files: $CHANGED_FILES"
+          if ! echo "$CHANGED_FILES" | grep -q '^application-code/frontend/'; then
+            echo "No changes detected in application-code/frontend/**. Skipping workflow."
+            exit 0
+          fi
 
       # Step 2: Log in to Docker Hub
       - name: Log in to Docker Hub

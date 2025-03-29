@@ -82,5 +82,3 @@ docker run -p 3000:3000 my-node-app
 ```
 http://localhost:3000
 ```
-
-
