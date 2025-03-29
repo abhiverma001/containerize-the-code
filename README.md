@@ -30,6 +30,28 @@ Before diving in, make sure you’ve got your toolbox ready:
 
 ---
 
+## Automated Docker Image Builds 🛠️  
+
+This repository is configured to **automatically build Docker images** and **push them to Docker Hub**. 🎉  
+
+Here’s how it works:  
+
+1. Code is pushed to the `main` branch.  
+2. A GitHub Action workflow is triggered, building the Docker image.  
+3. The built image is tagged and pushed to the [Docker Hub repository](https://hub.docker.com/repository/docker/abhiverma001/).
+- [To-Do-Frontend-App-Docker-Hub-Repo](https://hub.docker.com/repository/docker/abhiverma001/fronend-to-do-app/general)
+- [To-Do-Backend-App-Docker-Hub-Repo](in-progress) 
+
+### Want to try it yourself?  
+
+- Clone this repository.  
+- Make your changes and push them to the `main` branch.  
+- Watch the magic happen on Docker Hub! 🪄  
+
+![Magic Build](https://media.giphy.com/media/xT9IgzoKnwFNmISR8I/giphy.gif)
+
+---
+
 ## Contributing  
 
 We love contributors! 💖 Want to make this repo even better? Here’s how:  
