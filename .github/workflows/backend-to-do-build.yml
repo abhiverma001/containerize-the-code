@@ -2,8 +2,6 @@ name: Build-Push-Backend-To-Do-App
 
 on:
   workflow_call:
-    paths:
-      - 'application-code/backend/**'
   workflow_dispatch:
 
 env:

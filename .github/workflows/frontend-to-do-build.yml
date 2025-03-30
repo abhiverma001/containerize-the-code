@@ -2,8 +2,6 @@ name: Build-Push-Frontend-To-Do-App
 
 on:
   workflow_call:
-    paths:
-      - 'application-code/frontend/**'
   workflow_dispatch:
 
 env:
