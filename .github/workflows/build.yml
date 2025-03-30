@@ -18,6 +18,12 @@ on:
 jobs:
   frontend-to-do-app:
     uses: ./.github/workflows/frontend-to-do-build.yml
+    with:
+      docker_username: ${{ secrets.DOCKER_USERNAME }}
+      docker_password: ${{ secrets.DOCKER_PASSWORD }}    
 
   backend-to-do-app:
     uses: ./.github/workflows/backend-to-do-build.yml
+    with:
+      docker_username: ${{ secrets.DOCKER_USERNAME }}
+      docker_password: ${{ secrets.DOCKER_PASSWORD }}    
