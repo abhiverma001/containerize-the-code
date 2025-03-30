@@ -1,18 +1,24 @@
 name: Build-Push-Frontend-To-Do-App
 
 on:
-  workflow_call:
-    inputs:
-      username:
-        required: true
-        type: string
-      password:
-        required: true
-        type: string
-  # workflow_dispatch:
+  # # using this to trigger the workflow from another workflow build.yaml but that's not working no-idea why? later check and fix
+  # workflow_call:
+  #   inputs:
+  #     username:
+  #       required: true
+  #       type: string
+  #     password:
+  #       required: true
+  #       type: string
+  push:
+    branches:
+      - main
+    paths:
+      - 'application-code/frontend/**'
+  workflow_dispatch:
 
-# env:
-#   working_dir: 'application-code/frontend/'
+env:
+  working_dir: 'application-code/frontend/'
 
 jobs:
   build:
@@ -29,27 +35,27 @@ jobs:
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
-          username: ${{ inputs.username }}
-          password: ${{ inputs.password }}
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}    
 
-      # - name: Get version tag
-      #   id: version
-      #   run: |
-      #     VERSION=$(git describe --tags --abbrev=0 || echo "v0.0.0")
-      #     echo "VERSION=${VERSION}"
-      #     echo "VERSION=${VERSION}" >> $GITHUB_ENV
+      - name: Get version tag
+        id: version
+        run: |
+          VERSION=$(git describe --tags --abbrev=0 || echo "v0.0.0")
+          echo "VERSION=${VERSION}"
+          echo "VERSION=${VERSION}" >> $GITHUB_ENV
 
-      # - name: Build Docker image
-      #   run: |
-      #     IMAGE_NAME=abhiverma001/frontend-to-do-app
-      #     IMAGE_TAG=${{ env.VERSION }}
-      #     docker build -t $IMAGE_NAME:$IMAGE_TAG .
+      - name: Build Docker image
+        run: |
+          IMAGE_NAME=abhiverma001/frontend-to-do-app
+          IMAGE_TAG=${{ env.VERSION }}
+          docker build -t $IMAGE_NAME:$IMAGE_TAG .
 
-      # - name: Push Docker image
-      #   run: |
-      #     IMAGE_NAME=abhiverma001/frontend-to-do-app
-      #     IMAGE_TAG=${{ env.VERSION }}
-      #     docker push $IMAGE_NAME:$IMAGE_TAG
+      - name: Push Docker image
+        run: |
+          IMAGE_NAME=abhiverma001/frontend-to-do-app
+          IMAGE_TAG=${{ env.VERSION }}
+          docker push $IMAGE_NAME:$IMAGE_TAG
           
       # Step 6: Optionally, push the `latest` tag (optional step) uncomment if you want to show latest image as latest tag
       # - name: Push latest tag (optional)

@@ -23,6 +23,7 @@ This is simple 'To-DO' frontend application. This structure follows best practic
       └── Tasks.js            <-- A React component for rendering tasks
 ```
 
+
 ## Key Points About This Structure:
 ## /public Directory:
 ```index.html:```
