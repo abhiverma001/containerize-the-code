@@ -19,13 +19,13 @@ jobs:
   frontend-to-do-app:
     name: Frontend To-Do App Build
     with:
-      docker_username: ${{ secrets.DOCKER_USERNAME }}
-      docker_password: ${{ secrets.DOCKER_PASSWORD }}    
+      username: ${{ secrets.DOCKER_USERNAME }}
+      password: ${{ secrets.DOCKER_PASSWORD }}    
     uses: ./.github/workflows/frontend-to-do-build.yml
 
   backend-to-do-app:
     name: Backend To-Do App Build
     uses: ./.github/workflows/backend-to-do-build.yml
     with:
-      docker_username: ${{ secrets.DOCKER_USERNAME }}
-      docker_password: ${{ secrets.DOCKER_PASSWORD }}
+      username: ${{ secrets.DOCKER_USERNAME }}
+      password: ${{ secrets.DOCKER_PASSWORD }}

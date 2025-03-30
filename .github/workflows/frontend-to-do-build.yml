@@ -3,10 +3,10 @@ name: Build-Push-Frontend-To-Do-App
 on:
   workflow_call:
     inputs:
-      docker_username:
+      username:
         required: true
         type: string
-      docker_password:
+      password:
         required: true
         type: string
   workflow_dispatch:
@@ -30,8 +30,8 @@ jobs:
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
-          username: ${{ inputs.docker_username }}
-          password: ${{ inputs.docker_password }}
+          username: ${{ inputs.username }}
+          password: ${{ inputs.password }}
 
       - name: Get version tag
         id: version
