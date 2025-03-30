@@ -3,37 +3,37 @@
 #Invalid workflow file: .github/workflows/build.yml#L26
 #The workflow is not valid. .github/workflows/build.yml (Line: 26, Col: 17): Unrecognized named-value: 'secrets'. Located at position 1 within expression: secrets.DOCKER_USERNAME .github/workflows/build.yml (Line: 27, Col: 17): Unrecognized named-value: 'secrets'. Located at position 1 within expression: secrets.DOCKER_PASSWORD
 
-name: Build
+# name: Build
 
-on:
-  # workflow_run:
-  #   workflows:
-  #     - semver-tag-release.yml  # Wait for this workflow to complete
-  #   status:
-  #     - success
+# on:
+#   workflow_run:
+#     workflows:
+#       - semver-tag-release.yml  # Wait for this workflow to complete
+#     status:
+#       - success
 
-  # push:
-  #   branches:
-  #     - main
+#   push:
+#     branches:
+#       - main
 
-  # pull_request:
-  #   branches:
-  #     - main
+#   pull_request:
+#     branches:
+#       - main
       
-  # workflow_dispatch:
+#   workflow_dispatch:
 
-jobs:
+# jobs:
 
-  frontend-to-do-app:
-    name: Frontend To-Do App Build
-    uses: ./.github/workflows/frontend-to-do-build.yml
-    with:
-      username: ${{ secrets.DOCKER_USERNAME }}
-      password: ${{ secrets.DOCKER_PASSWORD }}    
+#   frontend-to-do-app:
+#     name: Frontend To-Do App Build
+#     uses: ./.github/workflows/frontend-to-do-build.yml
+#     with:
+#       username: ${{ secrets.DOCKER_USERNAME }}
+#       password: ${{ secrets.DOCKER_PASSWORD }}    
 
-  backend-to-do-app:
-    name: Backend To-Do App Build
-    uses: ./.github/workflows/backend-to-do-build.yml
-    with:
-      username: ${{ secrets.DOCKER_USERNAME }}
-      password: ${{ secrets.DOCKER_PASSWORD }}
+#   backend-to-do-app:
+#     name: Backend To-Do App Build
+#     uses: ./.github/workflows/backend-to-do-build.yml
+#     with:
+#       username: ${{ secrets.DOCKER_USERNAME }}
+#       password: ${{ secrets.DOCKER_PASSWORD }}
