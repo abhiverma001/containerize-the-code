@@ -14,18 +14,17 @@ on:
     branches:
       - main
   workflow_dispatch:
-
 jobs:
   frontend-to-do-app:
     name: Frontend To-Do App Build
     uses: ./.github/workflows/frontend-to-do-build.yml
     with:
       docker_username: ${{ secrets.DOCKER_USERNAME }}
-      docker_password: ${{ secrets.DOCKER_PASSWORD }}    
+      docker_password: ${{ secrets.DOCKER_PASSWORD }}
 
   backend-to-do-app:
     name: Backend To-Do App Build
     uses: ./.github/workflows/backend-to-do-build.yml
     with:
       docker_username: ${{ secrets.DOCKER_USERNAME }}
-      docker_password: ${{ secrets.DOCKER_PASSWORD }}    
+      docker_password: ${{ secrets.DOCKER_PASSWORD }}
