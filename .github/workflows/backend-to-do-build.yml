@@ -51,7 +51,7 @@ jobs:
         run: |
           IMAGE_NAME=abhiverma001/backend-to-do-app
           IMAGE_TAG=${{ env.VERSION }}
-          docker build -t $IMAGE_NAME:$IMAGE_TAG -f application-code/backend/Dockerfile .
+          docker build -t $IMAGE_NAME:$IMAGE_TAG
 
       # Step 5: Push the Docker image to Docker Hub
       - name: Push Docker image
