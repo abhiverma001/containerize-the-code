@@ -11,13 +11,20 @@ on:
     branches:
       - main
     paths:
-      - 'application-code/backend/**'  # Trigger only on changes in this folder
+      - 'application-code/backend/**'  # Triggers only on changes in this folder
 
   workflow_dispatch:
 
+env:
+  working_dir: 'application-code/backendend/'
+
 jobs:
   build:
+    name: To-Do-Backend-Build
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ env.working_dir }}    
     steps:
       - name: Checkout code
         uses: actions/checkout@v3

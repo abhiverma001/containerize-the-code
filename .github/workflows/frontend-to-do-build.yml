@@ -11,13 +11,20 @@ on:
     branches:
       - main
     paths:
-      - 'application-code/frontend/**'  # Trigger only on changes in this folder
+      - 'application-code/frontend/**'  # Triggers only on changes in this folder
 
   workflow_dispatch:
 
+env:
+  working_dir: 'application-code/frontend/'
+
 jobs:
   build:
+    name: To-Do-Frontend-Build
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ env.working_dir }}    
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -44,7 +51,7 @@ jobs:
         run: |
           IMAGE_NAME=abhiverma001/frontend-to-do-app
           IMAGE_TAG=${{ env.VERSION }}
-          docker build -t $IMAGE_NAME:$IMAGE_TAG -f application-code/frontend/Dockerfile .
+          docker build -t $IMAGE_NAME:$IMAGE_TAG .
 
       # Step 5: Push the Docker image to Docker Hub
       - name: Push Docker image
@@ -60,4 +67,3 @@ jobs:
       #     IMAGE_NAME=abhiverma001/frontend-to-do-app
       #     docker tag $IMAGE_NAME:${{ env.VERSION }} $IMAGE_NAME:latest
       #     docker push $IMAGE_NAME:latest
-
