@@ -8,7 +8,7 @@ on:
         type: string
       docker_password:
         required: true
-        type: string  
+        type: string
   workflow_dispatch:
 
 env:
@@ -20,21 +20,19 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ${{ env.working_dir }}    
+        working-directory: ${{ env.working_dir }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0 # Fetch the entire history including tags
+          fetch-depth: 0
 
-      # Step 2: Log in to Docker Hub
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
-          username: ${{ inputs.docker_username }}  # Use inputs instead of secrets
-          password: ${{ inputs.docker_password }}  # Use inputs instead of secrets
+          username: ${{ inputs.docker_username }}
+          password: ${{ inputs.docker_password }}
 
-      # Step 3: Get the version tag (latest tag from Git)
       - name: Get version tag
         id: version
         run: |
@@ -42,14 +40,12 @@ jobs:
           echo "VERSION=${VERSION}"
           echo "VERSION=${VERSION}" >> $GITHUB_ENV
 
-      # Step 4: Build the Docker image
       - name: Build Docker image
         run: |
           IMAGE_NAME=abhiverma001/backend-to-do-app
           IMAGE_TAG=${{ env.VERSION }}
           docker build -t $IMAGE_NAME:$IMAGE_TAG .
 
-      # Step 5: Push the Docker image to Docker Hub
       - name: Push Docker image
         run: |
           IMAGE_NAME=abhiverma001/backend-to-do-app
@@ -63,4 +59,3 @@ jobs:
       #     IMAGE_NAME=abhiverma001/backend-to-do-app
       #     docker tag $IMAGE_NAME:${{ env.VERSION }} $IMAGE_NAME:latest
       #     docker push $IMAGE_NAME:latest
-
