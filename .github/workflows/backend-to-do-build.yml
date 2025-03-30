@@ -16,7 +16,7 @@ on:
   workflow_dispatch:
 
 env:
-  working_dir: 'application-code/backendend/'
+  working_dir: 'application-code/backend/'
 
 jobs:
   build:
