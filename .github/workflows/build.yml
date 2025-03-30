@@ -1,0 +1,23 @@
+name: Build
+
+on:
+  workflow_run:
+    workflows:
+      - semver-tag-release.yml  # Wait for this workflow to complete
+    status:
+      - success
+
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  frontend-to-do-app:
+    uses: ./.github/workflows/actions/frontend-to-do-build.yml
+
+  backend-to-do-app:
+    uses: ./.github/workflows/actions/backend-to-do-build.yml

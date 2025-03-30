@@ -1,26 +1,17 @@
-name: Build-Push-Backend-To-Do-App
+name: Build-Push-Frontend-To-Do-App
 
 on:
-  workflow_run:
-    workflows:
-      - semver-tag-release.yml  # Wait for this workflow to complete
-    status:
-      - success
-
-  push:
-    branches:
-      - main
+  workflow_call:
     paths:
-      - 'application-code/backend/**'  # Triggers only on changes in this folder
-
+      - 'application-code/frontend/**'
   workflow_dispatch:
 
 env:
-  working_dir: 'application-code/backend/'
+  working_dir: 'application-code/frontend/'
 
 jobs:
   build:
-    name: To-Do-Backend-Build
+    name: To-Do-Frontend-Build
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -49,14 +40,14 @@ jobs:
       # Step 4: Build the Docker image
       - name: Build Docker image
         run: |
-          IMAGE_NAME=abhiverma001/backend-to-do-app
+          IMAGE_NAME=abhiverma001/frontend-to-do-app
           IMAGE_TAG=${{ env.VERSION }}
           docker build -t $IMAGE_NAME:$IMAGE_TAG .
 
       # Step 5: Push the Docker image to Docker Hub
       - name: Push Docker image
         run: |
-          IMAGE_NAME=abhiverma001/backend-to-do-app
+          IMAGE_NAME=abhiverma001/frontend-to-do-app
           IMAGE_TAG=${{ env.VERSION }}
           docker push $IMAGE_NAME:$IMAGE_TAG
 
@@ -64,7 +55,6 @@ jobs:
       # - name: Push latest tag (optional)
       #   if: github.ref == 'refs/heads/main'
       #   run: |
-      #     IMAGE_NAME=abhiverma001/backend-to-do-app
+      #     IMAGE_NAME=abhiverma001/frontend-to-do-app
       #     docker tag $IMAGE_NAME:${{ env.VERSION }} $IMAGE_NAME:latest
       #     docker push $IMAGE_NAME:latest
-
