@@ -27,7 +27,6 @@ env:
 
 jobs:
   build:
-    name: To-Do-Backend-Build
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -70,8 +69,7 @@ jobs:
       - name: Push Docker image
         run: |
           IMAGE_NAME=abhiverma001/backend-to-do-app
-          IMAGE_TAG=${{ env.VERSION }}
-          docker push $IMAGE_NAME:$IMAGE_TAG
+          docker push $IMAGE_NAME:${{ env.IMAGE_TAG }}
 
       # Step 6: Optionally, push the `latest` tag (optional step) uncomment if you want to show latest image as latest tag
       # - name: Push latest tag (optional)
