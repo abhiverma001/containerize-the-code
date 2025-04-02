@@ -1,4 +1,3 @@
-/* Global styles */
 body {
     margin: 0;
     padding: 0;
@@ -15,29 +14,23 @@ body {
     min-height: 100vh;
     padding: 20px;
     background: linear-gradient(135deg, #6e8efb, #a777e3);
-    background-size: 400% 400%; /* For a dynamic effect */
-    animation: gradientAnimation 10s ease infinite; /* Smooth gradient animation */
 }
 
 /* Optional: Add some more global styles for typography */
 h1, h2, h3, h4, h5, h6 {
     font-weight: 400;
-    margin: 0;
-    padding: 0;
 }
 
-/* Link styles */
 a {
     color: #333;
     text-decoration: none;
-    transition: color 0.3s ease-in-out;
 }
 
 a:hover {
     color: #6e8efb;
 }
 
-/* Code element styles */
+/* Styling for any code elements */
 code {
     background-color: #eee;
     padding: 2px 4px;
@@ -45,67 +38,3 @@ code {
     font-family: 'Courier New', monospace;
 }
 
-/* Hover Animation for buttons and links */
-button, .add-task-btn, .delete-task-btn {
-    transition: transform 0.1s ease, background-color 0.3s ease;
-}
-
-/* Gradient animation */
-@keyframes gradientAnimation {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-/* Styling for the header in app */
-.app-header {
-    text-align: center;
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: white;
-    padding: 20px;
-    margin-bottom: 40px;
-}
-
-/* Global styling for buttons and input elements */
-button, input, textarea {
-    font-family: 'Roboto', sans-serif;
-    font-size: 1rem;
-    padding: 10px 15px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-button:hover, input:focus, textarea:focus {
-    border-color: #6e8efb;
-    box-shadow: 0 0 5px rgba(110, 142, 251, 0.7);
-}
-
-/* Responsive Design Tweaks */
-@media (max-width: 768px) {
-    .app-wrapper {
-        padding: 10px;
-    }
-    .app-header {
-        font-size: 2rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .app-wrapper {
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: flex-start;
-        padding: 20px;
-    }
-
-    .app-header {
-        text-align: left;
-        font-size: 1.8rem;
-    }
-
-    button, input, textarea {
-        width: 100%;
-    }
-}
