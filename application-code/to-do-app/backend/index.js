@@ -13,7 +13,7 @@ app.get('/ok', (req, res) => {
     res.status(200).send('ok')
   })
 
-app.use("/api/tasks", tasks);
+app.use("/to-do-backend-api/tasks", tasks);
 
 const port = process.env.PORT || 3500;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
