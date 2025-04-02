@@ -12,7 +12,8 @@ class App extends Tasks {
             <div className="app">
                 {/* Header Section */}
                 <header className="app-header">
-                    <h1>📝 Task Manager - Built by Abhi Verma 🚀</h1>
+                    <h1>🎉 Task Manager - Built by Abhi Verma 🚀</h1>
+                    <p className="header-quote">"Organize your tasks, organize your life! 🌟"</p>
                 </header>
 
                 {/* Main Content Section */}
@@ -26,7 +27,7 @@ class App extends Tasks {
                                 value={currentTask}
                                 required={true}
                                 onChange={this.handleChange}
-                                placeholder="Add a new task ✍️"
+                                placeholder="Add a fun task 🎯"
                             />
                             <Button className="add-task-btn" color="primary" variant="outlined" type="submit">
                                 ➕ Add Task
@@ -41,7 +42,7 @@ class App extends Tasks {
                                         color="primary"
                                     />
                                     <div className={task.completed ? "task-text completed" : "task-text"}>
-                                        {task.task} ✅
+                                        {task.task} 🎉
                                     </div>
                                     <Button onClick={() => this.handleDelete(task._id)} color="secondary" className="delete-task-btn">
                                         Delete
@@ -54,7 +55,8 @@ class App extends Tasks {
 
                 {/* Footer Section */}
                 <footer className="app-footer">
-                    <p>Made with ❤️ by Abhi Verma</p>
+                    <p>🌈 "Stay productive, stay happy!" 🌟</p>
+                    <p>Made with ❤️ by <span className="author-name">Abhi Verma</span></p>
                 </footer>
             </div>
         );
