@@ -63,7 +63,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          IMAGE_NAME=abhiverma001/frontend-to-do-app
+          IMAGE_NAME=abhiverma001/backend-to-do-app
           docker build -t $IMAGE_NAME:${{ env.IMAGE_TAG }} .
 
       - name: Push Docker image
