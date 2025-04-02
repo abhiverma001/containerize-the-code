@@ -14,11 +14,11 @@ on:
     branches:
       - main
     paths:
-      - 'application-code/backend/**'
+      - 'application-code/to-do-app/backend/**'
   workflow_dispatch:
 
 env:
-  working_dir: 'application-code/backend/'
+  working_dir: 'application-code/to-do-app/backend/'
 
 jobs:
   build:
