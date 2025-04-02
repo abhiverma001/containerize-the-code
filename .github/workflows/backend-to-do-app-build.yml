@@ -15,6 +15,11 @@ on:
       - main
     paths:
       - 'application-code/to-do-app/backend/**'
+
+  pull_request:
+    paths:
+      - 'application-code/to-do-app/backend/**'
+
   workflow_dispatch:
 
 env:
