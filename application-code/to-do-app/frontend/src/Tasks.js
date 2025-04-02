@@ -26,13 +26,12 @@ class Tasks extends Component {
         e.preventDefault();
         const originalTasks = this.state.tasks;
         try {
-            console.log("Adding task:", this.state.currentTask); // Add this line for contianer logs
             const { data } = await addTask({ task: this.state.currentTask });
             const tasks = originalTasks;
             tasks.push(data);
             this.setState({ tasks, currentTask: "" });
         } catch (error) {
-            console.error("Error adding task:", error); // Add this line for container logs
+            console.log(error);
         }
     };
 
