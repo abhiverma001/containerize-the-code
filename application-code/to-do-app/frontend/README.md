@@ -60,15 +60,12 @@ This is simple 'To-DO' frontend application. This structure follows best practic
 - It renders the App.js component into the root div in the index.html file.
 - This file typically also contains the ReactDOM.render() method to mount the app.
 
-```Task.js``
-- Used to manage taks and connect with backend 
-- make sure your backend endpoint is configured here in this file (((const apiUrl = process.env.REACT_APP_BACKEND_URL //"http://localhost:8080/api/tasks";)))
-- value would be passed from deployment stack.
-
 ## /services Directory:
 ```taskServices.js:```
 - This file contains helper functions or services to handle the data logic for tasks (e.g., fetching data, updating tasks, etc.).
 - This is an abstraction layer that helps keep your codebase clean by separating concerns—taskServices.js deals with the business logic, while App.js handles rendering and UI logic.
+- make sure your backend endpoint is configured here in this file (((const apiUrl = process.env.REACT_APP_BACKEND_URL //"http://localhost:8080/api/tasks";)))
+- value would be passed from deployment stack.
 
 # Build and Run
 
