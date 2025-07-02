@@ -23,20 +23,19 @@ jobs:
         run: npm install -g sass
 
       - name: Create dist directory
-        run: mkdir -p dist
+        run: mkdir -p application-code/animated-flower/dist
 
       - name: Compile SCSS to CSS
-        run: sass src/style.scss dist/style.css
+        run: sass application-code/animated-flower/src/style.scss application-code/animated-flower/dist/style.css
 
       - name: Copy HTML and JS files
         run: |
-          cp src/index.html dist/index.html
-          cp src/script.js dist/script.js
+          cp application-code/animated-flower/src/index.html application-code/animated-flower/dist/index.html
+          cp application-code/animated-flower/src/script.js application-code/animated-flower/dist/script.js
 
       - name: Upload dist as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: dist
-          path: dist/
+          name: animated-flower-dist
+          path: animated-flower-dist/
 
-          
