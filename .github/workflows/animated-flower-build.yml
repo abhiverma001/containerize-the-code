@@ -1,0 +1,42 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Sass
+        run: npm install -g sass
+
+      - name: Create dist directory
+        run: mkdir -p dist
+
+      - name: Compile SCSS to CSS
+        run: sass src/style.scss dist/style.css
+
+      - name: Copy HTML and JS files
+        run: |
+          cp src/index.html dist/index.html
+          cp src/script.js dist/script.js
+
+      - name: Upload dist as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+          
