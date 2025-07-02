@@ -10,13 +10,7 @@ This project is organized into source and distribution folders to separate devel
 This is the **source** folder. It contains the original files you work on:
 - **index.html**: The main HTML file.
 - **script.js**: The main JavaScript file.
-- **style.scss**: The main stylesheet, written in SCSS (a CSS preprocessor).
-
-### dist/
-This is the **distribution** folder. It contains the final, processed files ready to be deployed or served to users:
-- **index.html**: The processed HTML file.
-- **script.js**: The processed JavaScript file (possibly minified or bundled).
-- **style.css**: The compiled CSS file (from `style.scss`).
+- **style.scss**: The main stylesheet, written in SCSS (a CSS preprocessor from github action).
 
 ### LICENSE.txt
 Contains the license for your project.
@@ -37,3 +31,11 @@ Contains documentation or instructions about your project.
 3. **Deploy or Serve**  
    Deploy or serve files directly from the `dist`
 
+## Github action role:
+
+- GHA will build the code and upload as a artifact 
+### dist/
+This is the **distribution** folder. It contains the final, processed files ready to be deployed or served to users:
+- **index.html**: The processed HTML file.
+- **script.js**: The processed JavaScript file (possibly minified or bundled).
+- **style.css**: The compiled CSS file (from `style.scss`).
